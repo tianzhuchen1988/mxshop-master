@@ -1,0 +1,19 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: mxshop-eureka
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+eureka:
+  server:
+    enable-self-preservation: false
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka

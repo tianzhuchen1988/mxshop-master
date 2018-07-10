@@ -1,4 +1,4 @@
-package cn.com.ydream.user.mapper;
+package cn.com.ydream.common.mybatis;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
