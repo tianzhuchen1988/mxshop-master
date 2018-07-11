@@ -18,6 +18,7 @@
         <module>mxshop-config</module>
         <module>mxshop-common</module>
         <module>mxshop-eureka</module>
+        <module>mxshop-gateway</module>
     </modules>
 
 </project>
