@@ -14,3 +14,9 @@ eureka:
 
 server:
   port: 8901
+
+#被保护的资源会通过该URI获取身份信息和授权信息
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:5000/auth/account

@@ -19,6 +19,7 @@
         <module>mxshop-common</module>
         <module>mxshop-eureka</module>
         <module>mxshop-gateway</module>
+        <module>mxshop-auth</module>
     </modules>
 
 </project>
