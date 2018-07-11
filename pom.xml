@@ -16,6 +16,8 @@
         <module>product-service</module>
         <module>seller-service</module>
         <module>mxshop-config</module>
+        <module>mxshop-common</module>
+        <module>mxshop-eureka</module>
     </modules>
 
 </project>
