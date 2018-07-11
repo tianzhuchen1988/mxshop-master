@@ -1,4 +1,4 @@
-package cn.com.ydream.user;
+package cn.com.ydream.product;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,21 +6,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
-/**
- * <p>
- * 类描述：
- * </p>
- *
- * @author chentz
- * @version 0.1
- * @since 2018/07/10.
- */
 @SpringBootApplication
 @RefreshScope
 @EnableDiscoveryClient
 @EnableFeignClients
-public class UserServiceApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
+public class ProductServiceApplication {
+    public static void main(String[] args){
+        SpringApplication.run(ProductServiceApplication.class, args);
     }
 }

@@ -3,10 +3,7 @@ package cn.com.ydream.user.controller;
 import cn.com.ydream.user.domain.User;
 import cn.com.ydream.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -27,5 +24,10 @@ public class UserController {
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public User getUser(@PathVariable("userId")Integer userId){
         return userService.findUserById(userId);
+    }
+
+    @RequestMapping(value = "/saveUser", method = RequestMethod.PUT)
+    public int saveUser(@RequestBody User user){
+        return userService.saveUser(user);
     }
 }
