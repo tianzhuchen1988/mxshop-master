@@ -6,9 +6,13 @@ import cn.com.ydream.user.domain.Product;
 import cn.com.ydream.user.domain.User;
 import cn.com.ydream.user.mapper.UserMapper;
 import cn.com.ydream.user.service.UserService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Random;
 
 /**
  * <p>
@@ -31,12 +35,32 @@ public class UserServiceImpl implements UserService{
     private ProductFeignClient productFeignClient;
 
     @Override
+    //@HystrixCommand
     public User findUserById(Integer id) {
+
+        randomlyRunLong();
+
         User u = new User();
-        u.setUserId(1001);
+        u.setUserId(id);
         //u.setUserName(serviceConfig.getExampleProperty());
         u = userMapper.selectOne(u);
         return u;
+    }
+
+    /**
+     * 测试熔断器HystrixCommand使用，随机三分之一机会睡眠11秒，熔断器默认1秒超时并报错，保护远程调用
+     */
+    private void randomlyRunLong(){
+        Random rand = new Random();
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+        if (randomNum==3) sleep();
+    }
+    private void sleep(){
+        try {
+            Thread.sleep(11000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

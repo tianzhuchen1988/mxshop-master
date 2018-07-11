@@ -22,9 +22,8 @@ public class ProductServiceImpl implements ProductService {
         Product p = new Product();
         p.setProductId(id);
 
-        /*测试远程服务调用*/
+        /*测试远程服务调用，当远程调用出现异常时，服务消费者使用fallback服务降级机制来处理*/
         User u = userFeignClient.getUser(1001);
-        System.out.println(u.getUserName());
 
         return productMapper.selectByPrimaryKey(p);
     }
