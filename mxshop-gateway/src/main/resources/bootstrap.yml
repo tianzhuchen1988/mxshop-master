@@ -1,37 +1,6 @@
 spring:
   application:
     name: mxshop-gateway
-server:
-  port: 4000
-
-#网关去调用服务超时时间
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 7000
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-zuul:
-  ignored-services: '*'
-  host:
-    connect-timeout-millis: 20000
-    socket-timeout-millis: 20000
-  routes:
-    user-service:
-      path: /user/**
-      serviceId: user-service
-      stripPrefix: false
-      sensitiveHeaders:
-
-    product-service:
-      path: /product/**
-      serviceId: product-service
-      stripPrefix: false
-      sensitiveHeaders:
+  cloud:
+      config:
+        uri: http://localhost:8888
