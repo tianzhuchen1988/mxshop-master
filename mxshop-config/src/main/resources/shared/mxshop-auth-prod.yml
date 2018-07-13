@@ -17,7 +17,7 @@ pagehelper.supportMethodsArguments: true
 pagehelper.params: count=countSql
 
 server:
-  context-path: /uaa
+  contextPath: /auth
   port: 5000
 
 product.service.password: productservice

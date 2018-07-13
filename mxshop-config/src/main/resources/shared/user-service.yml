@@ -26,3 +26,6 @@ eureka:
 
 server:
   port: 8900
+
+#设置远程服务调用默认超时时间
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 12000

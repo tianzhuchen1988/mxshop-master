@@ -2,15 +2,7 @@ spring:
   application:
     name: user-service
   profiles:
-    active: default
+    active: dev
   cloud:
     config:
       uri: http://localhost:8888
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-server:
-  port: 8900

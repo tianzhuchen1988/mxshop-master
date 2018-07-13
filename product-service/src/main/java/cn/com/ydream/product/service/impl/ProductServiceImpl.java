@@ -18,6 +18,8 @@ public class ProductServiceImpl implements ProductService {
     private UserFeignClient userFeignClient;
 
     @Override
+    /*使用一个断路器包装一个远程资源调用，并设置断路器调用超时时间
+    @HystrixCommand(commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="10000")}) */
     public Product findProductById(Integer id) {
         Product p = new Product();
         p.setProductId(id);
