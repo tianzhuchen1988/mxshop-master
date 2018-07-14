@@ -1,0 +1,24 @@
+#公共配置
+
+#配置远程服务调用时的超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+#注册中心
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://mxshop-eureka:8761/eureka/
+
+#各服务通过该URI获取当前用户授权信息
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://mxshop-auth:5000/uaa/users/current

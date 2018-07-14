@@ -19,10 +19,6 @@ pagehelper.reasonable: true
 pagehelper.supportMethodsArguments: true
 pagehelper.params: count=countSql
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
 server:
+  context-path: /user
   port: 8900

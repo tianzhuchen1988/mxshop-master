@@ -6,9 +6,6 @@ import cn.com.ydream.user.domain.Product;
 import cn.com.ydream.user.domain.User;
 import cn.com.ydream.user.mapper.UserMapper;
 import cn.com.ydream.user.service.UserService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +35,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUserById(Integer id) {
 
-        randomlyRunLong();
+        //randomlyRunLong();
 
         User u = new User();
         u.setUserId(id);

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
  * @since 2018/07/10.
  */
 @RestController
-@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
@@ -29,5 +28,10 @@ public class UserController {
     @RequestMapping(value = "/saveUser", method = RequestMethod.PUT)
     public int saveUser(@RequestBody User user){
         return userService.saveUser(user);
+    }
+
+    @RequestMapping(value = "/demo/test", method = RequestMethod.GET)
+    public String demo(){
+        return "Hello oauth2";
     }
 }

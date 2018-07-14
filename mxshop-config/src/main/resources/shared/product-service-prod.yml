@@ -16,19 +16,6 @@ pagehelper.reasonable: true
 pagehelper.supportMethodsArguments: true
 pagehelper.params: count=countSql
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
 server:
+  context-path: /product
   port: 8901
-
-#被保护的资源会通过该URI获取身份信息和授权信息
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://localhost:5000/auth/account
-
-#设置远程服务调用默认超时时间
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 12000
