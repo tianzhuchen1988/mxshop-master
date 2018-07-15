@@ -1,21 +1,18 @@
 #数据源
-spring.datasource.url: jdbc:mysql://192.168.1.250:3306/test?useSSL=false&serverTimezone=UTC
+spring.datasource.url: jdbc:mysql://192.168.1.250:3306/test?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 spring.datasource.username: root
 spring.datasource.password: root
 spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
 
-#tkMapper通用mapper配置
-mybatis.type-aliases-package: com.karle.bean
-mybatis.mapper-locations: classpath:mapper/*.xml
-mapper.mappers: com.karle.tk.TkMapper
-mapper.identity: MYSQL
-
-#pagehelper配置
-pagehelper.helperDialect: mysql
-pagehelper.reasonable: true
-pagehelper.supportMethodsArguments: true
-pagehelper.params: count=countSql
-
 server:
   context-path: /product
   port: 8901
+
+security:
+  oauth2:
+    client:
+      clientId: product-service
+      clientSecret: productservice
+      accessTokenUri: http://mxshop-auth:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server

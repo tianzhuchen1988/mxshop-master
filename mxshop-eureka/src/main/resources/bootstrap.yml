@@ -6,6 +6,9 @@ spring:
       uri: http://config:8888
 
 eureka:
+  server:
+    #单机测试环境下关闭自我保护功能
+    enableSelfPreservation: false
   instance:
     prefer-ip-address: true
   client:

@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2018/07/10.
  */
 @Data
-@Table(name = "user")
+@Entity
 public class User implements Serializable{
 
     @Id

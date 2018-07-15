@@ -2,9 +2,8 @@ package cn.com.ydream.user.service.impl;
 
 import cn.com.ydream.user.client.ProductFeignClient;
 import cn.com.ydream.user.config.ServiceConfig;
-import cn.com.ydream.user.domain.Product;
 import cn.com.ydream.user.domain.User;
-import cn.com.ydream.user.mapper.UserMapper;
+import cn.com.ydream.user.repository.UserRepository;
 import cn.com.ydream.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,24 +27,28 @@ public class UserServiceImpl implements UserService{
     private ServiceConfig serviceConfig;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserRepository userRepository;
+
     @Autowired
     private ProductFeignClient productFeignClient;
 
     @Override
     public User findUserById(Integer id) {
 
-        //randomlyRunLong();
+        randomlyRunLong();
 
-        User u = new User();
-        u.setUserId(id);
         //u.setUserName(serviceConfig.getExampleProperty());
-        u = userMapper.selectOne(u);
+        User u = userRepository.findOne(id);
+
+        /*测试循环调用，结论：出现循环调用的话，会马上抛HystrixRuntimeException*/
+        /*Product p = productFeignClient.getProduct(1001);
+        Assert.notNull(p, "can't find product");*/
+
         return u;
     }
 
     /**
-     * 测试断路器HystrixCommand使用，随机三分之一机会睡眠11秒，断路器默认1秒超时并报错，保护远程调用
+     * 测试断路器HystrixCommand使用，随机三分之一机会睡眠11秒，断路器默认2秒超时并报错，保护远程调用
      */
     private void randomlyRunLong(){
         Random rand = new Random();
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService{
     }
     private void sleep(){
         try {
-            Thread.sleep(13000);
+            Thread.sleep(9000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -62,15 +65,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int saveUser(User user) {
+    public User saveUser(User user) {
         /*测试分布式事务（结论是：在Service层调用，且加上事务注解，且没有跨数据库，则事务可回滚）*/
-        int res = 0;
-        res = userMapper.insert(user);
+        user = userRepository.save(user);
         //调用远程服务product-service新增商品
-        Product p = new Product();
-        p.setProductName("Orange");
-        res = productFeignClient.saveProduct(p);
+        /*Product p = new Product();
+        p.setProductName("testFood");
+        productFeignClient.saveProduct(p);*/
 
-        return res;
+        return user;
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/product")
 public class ProductController {
 
     @Autowired
@@ -18,8 +17,13 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/saveProduct", method = RequestMethod.PUT)
-    public int saveProduct(@RequestBody Product product){
+    public Product saveProduct(@RequestBody Product product){
         return productService.saveProduct(product);
+    }
+
+    @RequestMapping(value = "/demo", method = RequestMethod.GET)
+    public String demo(){
+        return "Hello oauth2";
     }
 
 }

@@ -16,12 +16,4 @@
     <name>mxshop-common</name>
     <description>公共包，如公共工具类</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-    </dependencies>
-
 </project>

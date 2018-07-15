@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Data
-@Table(name = "account")
+@Entity
 public class Account implements Serializable, UserDetails {
     private static final long serialVersionUID = -5564715998247421713L;
 

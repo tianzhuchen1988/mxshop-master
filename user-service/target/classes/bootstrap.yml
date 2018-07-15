@@ -2,7 +2,16 @@ spring:
   application:
     name: user-service
   profiles:
-    active: dev
+    active: default
   cloud:
+    stream:
+      bindings:
+        output:
+          destination:  userCreateTopic
+          content-type: application/json
+      kafka:
+        binder:
+          zkNodes: localhost
+          brokers: localhost
     config:
       uri: http://config:8888
