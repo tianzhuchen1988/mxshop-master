@@ -3,6 +3,7 @@ package cn.com.ydream.user.service.impl;
 import cn.com.ydream.user.client.ProductFeignClient;
 import cn.com.ydream.user.config.ServiceConfig;
 import cn.com.ydream.user.domain.User;
+import cn.com.ydream.user.mq.sender.UserChangeSender;
 import cn.com.ydream.user.repository.UserRepository;
 import cn.com.ydream.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Autowired
+    private UserChangeSender userChangeSender;
 
     @Override
     public User findUserById(Integer id) {
@@ -72,6 +76,9 @@ public class UserServiceImpl implements UserService{
         /*Product p = new Product();
         p.setProductName("testFood");
         productFeignClient.saveProduct(p);*/
+
+        //测试基于stream的消息发送
+        userChangeSender.publish(user);
 
         return user;
     }

@@ -19,3 +19,23 @@ security:
       accessTokenUri: http://mxshop-auth:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
+
+spring:
+  cloud:
+    stream:
+      binders:
+        rabbitmq:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: springcloud
+                password: springcloud
+      bindings:
+        userChangeOutput:
+          destination:  userChangeTopic
+          content-type: application/json
+          binder: rabbitmq
+
