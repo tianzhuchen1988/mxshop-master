@@ -1,6 +1,7 @@
 package cn.com.ydream.product.service.impl;
 
 import cn.com.ydream.product.client.UserFeignClient;
+import cn.com.ydream.product.client.UserRestTemplateClient;
 import cn.com.ydream.product.domain.Product;
 import cn.com.ydream.product.domain.User;
 import cn.com.ydream.product.repository.ProductRepository;
@@ -18,6 +19,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private UserFeignClient userFeignClient;
 
+    @Autowired
+    private UserRestTemplateClient userRestTemplateClient;
+
     @Override
     /*使用一个断路器包装一个远程资源调用，并设置断路器调用超时时间
     @HystrixCommand(commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="10000")}) */
@@ -33,5 +37,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(Product p) {
         return productRepository.save(p);
+    }
+
+    @Override
+    public User getUserFromCache(Integer userId) {
+        return userRestTemplateClient.getUser(userId);
     }
 }

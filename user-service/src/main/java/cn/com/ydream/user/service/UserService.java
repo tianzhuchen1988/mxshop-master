@@ -5,4 +5,5 @@ import cn.com.ydream.user.domain.User;
 public interface UserService {
     User findUserById(Integer id);
     User saveUser(User user);
+    void updateUser(String userName, User user);
 }

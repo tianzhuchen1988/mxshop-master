@@ -1,6 +1,8 @@
 package cn.com.ydream.user.domain;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +27,10 @@ public class User implements Serializable{
 
     @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "age")
+    @Range(min = 1, max = 110)
+    private Integer age;
 
     public User(){}
 }

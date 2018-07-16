@@ -2,7 +2,9 @@ package cn.com.ydream.product.mq.receiver;
 
 import cn.com.ydream.product.domain.User;
 import cn.com.ydream.product.mq.UserChangeSink;
+import cn.com.ydream.product.repository.UserRedisRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
@@ -19,8 +21,13 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 @EnableBinding(UserChangeSink.class)
 public class UserChangeReceiver {
 
+    @Autowired
+    private UserRedisRepository userRedisRepository;
+
     @StreamListener(UserChangeSink.INPUT)
     public void handle(User user){
         log.info("使用stream消费消息测试：消息内容 {}", user.getUserName());
+        log.info("更新redis缓存中的用户信息, {}", user.getUserId());
+        userRedisRepository.updateUser(user);
     }
 }

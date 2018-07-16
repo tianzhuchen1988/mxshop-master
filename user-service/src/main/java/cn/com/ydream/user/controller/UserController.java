@@ -7,7 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * <p>
@@ -47,6 +51,11 @@ public class UserController {
         logger.info("exampleProperty: {}", exampleProperty);
 
         return "Hello oauth2";
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
+    public void updateUser(Principal principal, @Valid @RequestBody User user){
+        userService.updateUser(principal.getName(), user);
     }
 
     public String getExampleProperty() {

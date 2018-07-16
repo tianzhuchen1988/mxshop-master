@@ -9,6 +9,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 2160874953824386281L;
     private Integer userId;
     private String userName;
+    private Integer age;
 
     public User(){}
 }

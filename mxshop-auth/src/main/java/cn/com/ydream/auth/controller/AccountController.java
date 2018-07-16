@@ -10,7 +10,7 @@ import java.security.Principal;
 @RequestMapping(value = "/users")
 public class AccountController {
 
-    @RequestMapping(value = "current", method = RequestMethod.GET)
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
     public Principal currentUser(Principal principal){
         return principal;
     }

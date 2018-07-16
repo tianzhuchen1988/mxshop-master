@@ -6,9 +6,11 @@ import cn.com.ydream.user.domain.User;
 import cn.com.ydream.user.mq.sender.UserChangeSender;
 import cn.com.ydream.user.repository.UserRepository;
 import cn.com.ydream.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.Random;
 
@@ -22,6 +24,7 @@ import java.util.Random;
  * @since 2018/07/10.
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService{
 
     @Autowired
@@ -81,5 +84,19 @@ public class UserServiceImpl implements UserService{
         userChangeSender.publish(user);
 
         return user;
+    }
+
+    @Override
+    public void updateUser(String userName, User user){
+        User u  = userRepository.findByUserName(userName);
+        Assert.notNull(u, "用户不存在: " + userName);
+
+        u.setUserName(user.getUserName());
+        u.setAge(user.getAge());
+        log.info("用户{}更新了", u.getUserName());
+
+        userChangeSender.publish(u);
+
+        userRepository.save(u);
     }
 }

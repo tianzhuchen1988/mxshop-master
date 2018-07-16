@@ -1,6 +1,7 @@
 package cn.com.ydream.product.controller;
 
 import cn.com.ydream.product.domain.Product;
+import cn.com.ydream.product.domain.User;
 import cn.com.ydream.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class ProductController {
     @RequestMapping(value = "/demo", method = RequestMethod.GET)
     public String demo(){
         return "Hello oauth2";
+    }
+
+    @RequestMapping(value = "/getUser/{userId}", method = RequestMethod.GET)
+    public User getUserFromCache(@PathVariable("userId")Integer userId){
+        return productService.getUserFromCache(userId);
     }
 
 }
