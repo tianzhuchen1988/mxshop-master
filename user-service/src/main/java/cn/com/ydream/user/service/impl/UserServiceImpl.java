@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUserById(Integer id) {
 
-        randomlyRunLong();
+        //randomlyRunLong();
 
         //u.setUserName(serviceConfig.getExampleProperty());
         User u = userRepository.findOne(id);
