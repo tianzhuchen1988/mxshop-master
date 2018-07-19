@@ -6,6 +6,7 @@
 
     <groupId>cn.com.ydream</groupId>
     <artifactId>mxshop-gateway</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>mxshop-gateway</name>
@@ -58,5 +59,17 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>mxshop-gateway</finalName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

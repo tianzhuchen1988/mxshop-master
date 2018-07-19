@@ -1,0 +1,98 @@
+version: '2.1'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 15672:15672
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  mxshop-config:
+    image: chentianzhu/mxshop-config
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  mxshop-eureka:
+    image: chentianzhu/mxshop-eureka
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  mxshop-gateway:
+    image: chentianzhu/mxshop-gateway
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    ports:
+      - 80:4000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  user-service:
+    image: chentianzhu/user-service
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  product-service:
+    image: chentianzhu/product-service
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  mxshop-auth:
+    image: chentianzhu/mxshop-auth
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  mysql:
+    image: mysql:8.0.1
+    restart: always
+    ports:
+      - 3306:3306
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  redis:
+      image: redis
+      restart: always
+      ports:
+        - 6379:6379
+      logging:
+        options:
+          max-size: "10m"
+          max-file: "10"

@@ -6,6 +6,7 @@
 
     <groupId>cn.com.ydream</groupId>
     <artifactId>mxshop-auth</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>mxshop-auth</name>
@@ -100,6 +101,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>mxshop-auth</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>

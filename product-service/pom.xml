@@ -6,6 +6,7 @@
 
     <groupId>cn.com.ydream</groupId>
     <artifactId>product-service</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>product-service</name>
@@ -158,6 +159,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>product-service</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>

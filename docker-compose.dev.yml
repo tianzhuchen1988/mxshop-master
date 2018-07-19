@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+  rabbitmq:
+    ports:
+      - 5672:5672
+
+  mxshop-config:
+    build: mxshop-config
+    ports:
+      - 8888:8888
+
+  mxshop-eureka:
+    build: mxshop-eureka
+
+  mxshop-gateway:
+    build: mxshop-gateway
+
+  mxshop-auth:
+    build: mxshop-auth
+    ports:
+      - 5000:5000
+
+  user-service:
+    build: user-service
+    ports:
+      - 8900:8900
+
+  product-service:
+    build: product-service
+    ports:
+      - 8901:8901
