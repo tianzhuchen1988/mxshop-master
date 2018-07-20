@@ -10,6 +10,32 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  mysql:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    #volumes:
+      #- ~/dockerwork/mysql/data:/var/lib/mysql
+      #- ~/dockerwork/mysql/conf/mysqld.conf:/etc/mysql/mysql.conf.d/mysqld.conf
+      #- ~/dockerwork/mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   mxshop-config:
     image: chentianzhu/mxshop-config
     restart: always
@@ -48,8 +74,9 @@ services:
     image: chentianzhu/user-service
     restart: always
     depends_on:
-      mxshop-config:
-        condition: service_healthy
+      - mxshop-config
+      - mysql
+      - redis
     logging:
       options:
         max-size: "10m"
@@ -59,8 +86,9 @@ services:
     image: chentianzhu/product-service
     restart: always
     depends_on:
-      mxshop-config:
-        condition: service_healthy
+      - mxshop-config
+      - mysql
+      - redis
     logging:
       options:
         max-size: "10m"
@@ -70,29 +98,9 @@ services:
     image: chentianzhu/mxshop-auth
     restart: always
     depends_on:
-      mxshop-config:
-        condition: service_healthy
+      - mxshop-config
+      - mysql
     logging:
       options:
         max-size: "10m"
         max-file: "10"
-
-  mysql:
-    image: mysql:8.0.1
-    restart: always
-    ports:
-      - 3306:3306
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
-  redis:
-      image: redis
-      restart: always
-      ports:
-        - 6379:6379
-      logging:
-        options:
-          max-size: "10m"
-          max-file: "10"
