@@ -52,3 +52,5 @@ after_success:
   - docker build -t $PRODUCT_SERVICE:$COMMIT ./product-service
   - docker tag $PRODUCT_SERVICE:$COMMIT $PRODUCT_SERVICE:$TAG
   - docker push $PRODUCT_SERVICE
+
+  # 测试
