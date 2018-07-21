@@ -20,3 +20,6 @@ CREATE TABLE `user` (
   `age` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `test`.`account` (`account_name`, `account_password`) VALUES ('chentz', 'chentz');
+INSERT INTO `test`.`user` (`user_name`, `age`) VALUES ('chentz', 30);
