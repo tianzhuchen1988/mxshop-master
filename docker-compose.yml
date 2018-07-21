@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.2'
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -11,14 +11,10 @@ services:
         max-file: "10"
 
   mysql:
-    image: mysql
+    image: mysql:5.7
     restart: always
     ports:
       - 3306:3306
-    #volumes:
-      #- ~/dockerwork/mysql/data:/var/lib/mysql
-      #- ~/dockerwork/mysql/conf/mysqld.conf:/etc/mysql/mysql.conf.d/mysqld.conf
-      #- ~/dockerwork/mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
     logging:
@@ -63,32 +59,11 @@ services:
     depends_on:
       mxshop-config:
         condition: service_healthy
+    links:
+      - "mxshop-eureka:mxshop-eureka"
+      - "mxshop-config:mxshop-config"
     ports:
       - 80:4000
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
-  user-service:
-    image: chentianzhu/user-service
-    restart: always
-    depends_on:
-      - mxshop-config
-      - mysql
-      - redis
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
-  product-service:
-    image: chentianzhu/product-service
-    restart: always
-    depends_on:
-      - mxshop-config
-      - mysql
-      - redis
     logging:
       options:
         max-size: "10m"
@@ -98,8 +73,50 @@ services:
     image: chentianzhu/mxshop-auth
     restart: always
     depends_on:
-      - mxshop-config
+      mxshop-config:
+          condition: service_healthy
+    depends_on:
       - mysql
+    links:
+      - "mxshop-config:mxshop-config"
+      - "mxshop-eureka:mxshop-eureka"
+      - "mxshop-gateway:mxshop-gateway"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  user-service:
+    image: chentianzhu/user-service
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    depends_on:
+      - mysql
+    links:
+      - "mxshop-config:mxshop-config"
+      - "mxshop-eureka:mxshop-eureka"
+      - "mxshop-gateway:mxshop-gateway"
+      - "mxshop-auth:mxshop-auth"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  product-service:
+    image: chentianzhu/product-service
+    restart: always
+    depends_on:
+      mxshop-config:
+        condition: service_healthy
+    depends_on:
+      - mysql
+    links:
+      - "mxshop-config:mxshop-config"
+      - "mxshop-eureka:mxshop-eureka"
+      - "mxshop-gateway:mxshop-gateway"
+      - "mxshop-auth:mxshop-auth"
     logging:
       options:
         max-size: "10m"

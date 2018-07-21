@@ -35,7 +35,7 @@ public class UserRestTemplateClient {
         log.info("缓存中没有该用户{}，调用远程服务获取用户", userId);
 
         ResponseEntity<User> restExchange = restTemplate.exchange(
-                "http://localhost:4000/user/{userId}",
+                "http://mxshop-gateway:4000/user/{userId}",
                 HttpMethod.GET,
                 null,
                 User.class,

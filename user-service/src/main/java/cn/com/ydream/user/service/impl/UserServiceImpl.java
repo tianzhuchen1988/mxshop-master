@@ -47,6 +47,8 @@ public class UserServiceImpl implements UserService{
         //u.setUserName(serviceConfig.getExampleProperty());
         User u = userRepository.findOne(id);
 
+        log.info("进入查找用户...");
+
         /*测试循环调用，结论：出现循环调用的话，会马上抛HystrixRuntimeException*/
         /*Product p = productFeignClient.getProduct(1001);
         Assert.notNull(p, "can't find product");*/

@@ -3,4 +3,4 @@ spring:
     name: mxshop-gateway
   cloud:
       config:
-        uri: http://config:8888
+        uri: http://mxshop-config:8888

@@ -1,5 +1,9 @@
 #公共配置
 
+logging:
+  level:
+    org.springframework.security: INFO
+
 #配置远程服务调用时的超时时间
 hystrix:
   command:

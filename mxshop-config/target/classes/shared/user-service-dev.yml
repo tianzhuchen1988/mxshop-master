@@ -2,10 +2,10 @@
 example.property: "I AM IN THE DEFAULT"
 
 #数据源
-spring.datasource.url: jdbc:mysql://192.168.1.250:3306/test?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.url: jdbc:mysql://192.168.99.100:3306/test
 spring.datasource.username: root
 spring.datasource.password: root
-spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+spring.datasource.driver-class-name: com.mysql.jdbc.Driver
 
 server:
   context-path: /user
@@ -29,10 +29,10 @@ spring:
           environment:
             spring:
               rabbitmq:
-                host: localhost
+                host: 192.168.99.100
                 port: 5672
-                username: springcloud
-                password: springcloud
+                username: guest
+                password: guest
       bindings:
         userChangeOutput:
           destination:  userChangeTopic

@@ -1,0 +1,54 @@
+sudo: required
+
+services:
+  - docker
+
+language: java
+jdk: oraclejdk8
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+
+  #TAG
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+
+  # MXSHOP-CONFIG
+  - export MXSHOP_CONFIG=chentianzhu/mxshop-config
+  - docker build -t $MXSHOP_CONFIG:$COMMIT ./mxshop-config
+  - docker tag $MXSHOP_CONFIG:$COMMIT $MXSHOP_CONFIG:$TAG
+  - docker push $MXSHOP_CONFIG
+
+  # MXSHOP-EUREKA
+  - export MXSHOP_EUREKA=chentianzhu/mxshop-eureka
+  - docker build -t $MXSHOP_EUREKA:$COMMIT ./mxshop-eureka
+  - docker tag $MXSHOP_EUREKA:$COMMIT $MXSHOP_EUREKA:$TAG
+  - docker push $MXSHOP_EUREKA
+
+  # MXSHOP-GATEWAY
+  - export MXSHOP_GATEWAY=chentianzhu/mxshop-gateway
+  - docker build -t $MXSHOP_GATEWAY:$COMMIT ./mxshop-gateway
+  - docker tag $MXSHOP_GATEWAY:$COMMIT $MXSHOP_GATEWAY:$TAG
+  - docker push $MXSHOP_GATEWAY
+
+  # MXSHOP-AUTH
+  - export MXSHOP_AUTH=chentianzhu/mxshop-auth
+  - docker build -t $MXSHOP_AUTH:$COMMIT ./mxshop-auth
+  - docker tag $MXSHOP_AUTH:$COMMIT $MXSHOP_AUTH:$TAG
+  - docker push $MXSHOP_AUTH
+
+  # USER-SERVICE
+  - export USER_SERVICE=chentianzhu/user-service
+  - docker build -t $USER_SERVICE:$COMMIT ./user-service
+  - docker tag $USER_SERVICE:$COMMIT $USER_SERVICE:$TAG
+  - docker push $USER_SERVICE
+
+  # PRODUCT-SERVICE
+  - export PRODUCT_SERVICE=chentianzhu/product-service
+  - docker build -t $PRODUCT_SERVICE:$COMMIT ./product-service
+  - docker tag $PRODUCT_SERVICE:$COMMIT $PRODUCT_SERVICE:$TAG
+  - docker push $PRODUCT_SERVICE

@@ -9,4 +9,4 @@ spring:
     active: dev
   cloud:
     config:
-      uri: http://config:8888
+      uri: http://mxshop-config:8888
