@@ -1,7 +1,3 @@
-eureka:
-  client:
-    enabled: false
-
 spring:
   application:
     name: user-service
@@ -10,3 +6,7 @@ spring:
   cloud:
     config:
       uri: http://mxshop-config:8888
+
+eureka:
+  client:
+    enabled: false

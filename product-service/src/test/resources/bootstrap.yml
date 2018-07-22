@@ -1,0 +1,12 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  application:
+    name: product-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://mxshop-config:8888

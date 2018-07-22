@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     @HystrixCommand(commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="10000")}) */
     public Product findProductById(Integer id) {
         //测试远程服务调用，当远程调用出现异常时，服务消费者使用fallback服务降级机制来处理
-        User u = userFeignClient.getUser(1001);
+        User u = userFeignClient.getUser(1003);
 
         //Assert.notNull(u, "can't find user");
 
