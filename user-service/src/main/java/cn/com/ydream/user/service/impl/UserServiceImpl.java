@@ -1,13 +1,18 @@
 package cn.com.ydream.user.service.impl;
 
+import cn.com.ydream.user.client.AuthFeignClient;
 import cn.com.ydream.user.client.ProductFeignClient;
 import cn.com.ydream.user.config.ServiceConfig;
+import cn.com.ydream.user.domain.Account;
+import cn.com.ydream.user.domain.Gender;
 import cn.com.ydream.user.domain.User;
 import cn.com.ydream.user.mq.sender.UserChangeSender;
 import cn.com.ydream.user.repository.UserRepository;
 import cn.com.ydream.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -25,16 +30,23 @@ import java.util.Random;
  */
 @Service
 @Slf4j
+@RefreshScope
 public class UserServiceImpl implements UserService{
 
     @Autowired
     private ServiceConfig serviceConfig;
 
     @Autowired
+    private Environment env;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Autowired
+    private AuthFeignClient authFeignClient;
 
     @Autowired
     private UserChangeSender userChangeSender;
@@ -47,7 +59,7 @@ public class UserServiceImpl implements UserService{
         //u.setUserName(serviceConfig.getExampleProperty());
         User u = userRepository.findOne(id);
 
-        log.info("进入查找用户...");
+        log.info("进入查找用户..."+env.getProperty("envProperty"));
 
         /*测试循环调用，结论：出现循环调用的话，会马上抛HystrixRuntimeException*/
         /*Product p = productFeignClient.getProduct(1001);
@@ -100,5 +112,26 @@ public class UserServiceImpl implements UserService{
         userChangeSender.publish(u);
 
         userRepository.save(u);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User createNewUser(Account account) {
+        User existing = userRepository.findByUserName(account.getAccountName());
+
+        Assert.isNull(existing, "用户名已存在" + account.getAccountName());
+
+        authFeignClient.createNewUser(account);
+
+        User user = new User();
+        user.setUserName(account.getAccountName());
+        user.setAge(20);
+        user.setGender(Gender.getDefault());
+
+        userRepository.save(user);
+
+        log.info("创建了新用户：{}", user.getUserName());
+
+        return user;
     }
 }

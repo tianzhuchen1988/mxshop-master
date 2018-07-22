@@ -1,5 +1,6 @@
 package cn.com.ydream.user.controller;
 
+import cn.com.ydream.user.domain.Account;
 import cn.com.ydream.user.domain.User;
 import cn.com.ydream.user.service.UserService;
 import org.slf4j.Logger;
@@ -56,6 +57,11 @@ public class UserController {
     @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
     public void updateUser(Principal principal, @Valid @RequestBody User user){
         userService.updateUser(principal.getName(), user);
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public User createNewUser(@Valid @RequestBody Account acount){
+        return userService.createNewUser(acount);
     }
 
     public String getExampleProperty() {

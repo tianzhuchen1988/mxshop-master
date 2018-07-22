@@ -32,5 +32,8 @@ public class User implements Serializable{
     @Range(min = 1, max = 110)
     private Integer age;
 
+    @Column(name = "gender")
+    private Gender gender;
+
     public User(){}
 }
