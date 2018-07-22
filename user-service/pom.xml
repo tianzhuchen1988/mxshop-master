@@ -164,6 +164,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <finalName>user-service</finalName>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
