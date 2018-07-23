@@ -1,3 +1,5 @@
 #删除所有<none>的镜像
 docker images | grep none | awk '{ print $3; }' | xargs docker rmi
 
+#本地开发环境重建镜像并启动
+docker-compose.exe -f docker-compose.yml -f docker-compose.dev.yml up --build
