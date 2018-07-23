@@ -20,6 +20,7 @@
         <module>mxshop-eureka</module>
         <module>mxshop-gateway</module>
         <module>mxshop-auth</module>
+        <module>mxshop-monitor</module>
     </modules>
 
 </project>

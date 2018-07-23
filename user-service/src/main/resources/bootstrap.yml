@@ -2,7 +2,9 @@ spring:
   application:
     name: user-service
   profiles:
-    active: dev
+    active: default
   cloud:
     config:
       uri: http://mxshop-config:8888
+  zipkin:
+    baseUrl: http://mxshop-monitor:8080

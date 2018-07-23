@@ -4,3 +4,5 @@ spring:
   cloud:
       config:
         uri: http://mxshop-config:8888
+  zipkin:
+    baseUrl: http://mxshop-monitor:8080

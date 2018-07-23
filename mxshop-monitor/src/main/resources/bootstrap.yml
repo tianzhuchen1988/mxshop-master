@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mxshop-auth
+    name: mxshop-monitor
   profiles:
     active: default
   cloud:

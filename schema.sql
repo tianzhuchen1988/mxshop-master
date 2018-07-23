@@ -27,9 +27,6 @@ INSERT INTO `test`.`user` (`user_name`, `age`) VALUES ('chentz', 30);
 ALTER TABLE `test`.`user`
 ADD COLUMN `gender` VARCHAR(3) NULL AFTER `age`;
 
-ALTER TABLE `test`.`user`
-ADD COLUMN `gender` VARCHAR(3) NULL AFTER `age`;
-
 ALTER TABLE `test`.`account`
 CHANGE COLUMN `account_name` `account_name` VARCHAR(100) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL ,
 CHANGE COLUMN `account_password` `account_password` VARCHAR(100) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL ;
