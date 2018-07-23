@@ -37,3 +37,6 @@ services:
     build: product-service
     ports:
       - 8901:8901
+
+  mxshop-monitor:
+    build: mxshop-monitor
