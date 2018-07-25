@@ -169,7 +169,7 @@ services:
     ports:
       - 9200:9200
     volumes:
-      - es_log_data:/var/lib/elasticsearch
+      - es_log_data:/usr/share/elasticsearch/data
 
 volumes:
   db_data:
