@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -74,7 +76,7 @@ public class AuthServiceApplication {
     @EnableAuthorizationServer
     protected static class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-        private TokenStore tokenStore = new InMemoryTokenStore();
+        //private TokenStore tokenStore = new InMemoryTokenStore();
 
         @Autowired
         @Qualifier("authenticationManagerBean")
@@ -86,6 +88,15 @@ public class AuthServiceApplication {
         @Autowired
         private ServiceConfig serviceConfig;
 
+        @Autowired
+        private RedisConnectionFactory connectionFactory;
+
+        @Bean
+        public TokenStore tokenStore() {
+            RedisTokenStore redis = new RedisTokenStore(connectionFactory);
+            return redis;
+        }
+
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
@@ -94,6 +105,7 @@ public class AuthServiceApplication {
                 .withClient("browser")
                 .authorizedGrantTypes("refresh_token", "password")
                 .scopes("ui")
+                //.accessTokenValiditySeconds(30)
             .and()
                 .withClient("user-service")
                 .secret(serviceConfig.getUserServicePassord())
@@ -110,7 +122,7 @@ public class AuthServiceApplication {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             endpoints
-                    .tokenStore(tokenStore)
+                    .tokenStore(tokenStore())
                     .authenticationManager(authenticationManager)
                     .userDetailsService(accountDetailService);
         }
