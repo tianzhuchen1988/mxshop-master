@@ -55,6 +55,6 @@ after_success:
 
   # MXSHOP-MONITOR
   - export MXSHOP_MONITOR=chentianzhu/mxshop-monitor
-  - docker build -t MXSHOP_MONITOR:$COMMIT ./mxshop-monitor
+  - docker build -t $MXSHOP_MONITOR:$COMMIT ./mxshop-monitor
   - docker tag $MXSHOP_MONITOR:$COMMIT $MXSHOP_MONITOR:$TAG
   - docker push $MXSHOP_MONITOR
