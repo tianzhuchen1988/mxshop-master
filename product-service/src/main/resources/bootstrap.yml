@@ -2,7 +2,7 @@ spring:
   application:
     name: product-service
   profiles:
-    active: dev
+    active: default
   cloud:
     config:
       uri: http://mxshop-config:8888
