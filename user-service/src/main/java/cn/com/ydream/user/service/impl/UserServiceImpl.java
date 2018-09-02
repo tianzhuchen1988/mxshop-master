@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -57,7 +58,8 @@ public class UserServiceImpl implements UserService{
         //randomlyRunLong();
 
         //u.setUserName(serviceConfig.getExampleProperty());
-        User u = userRepository.findOne(id);
+        Optional<User> optional = userRepository.findById(id);
+        User u = optional.get();
 
         log.info("进入查找用户..."+env.getProperty("envProperty"));
 

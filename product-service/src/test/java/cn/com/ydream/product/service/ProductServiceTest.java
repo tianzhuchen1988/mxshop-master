@@ -52,6 +52,6 @@ public class ProductServiceTest {
         assertEquals(product, found);
 
         verify(userFeignClient, times(2)).getUser(1003);
-        verify(productRepository, times(1)).findOne(product.getProductId());
+        verify(productRepository, times(1)).findById(product.getProductId()).get();
     }
 }

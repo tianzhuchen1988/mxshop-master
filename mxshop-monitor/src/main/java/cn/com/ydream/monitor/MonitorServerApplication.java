@@ -2,10 +2,12 @@ package cn.com.ydream.monitor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import zipkin.server.EnableZipkinServer;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.netflix.turbine.stream.EnableTurbineStream;
 
 @SpringBootApplication
-@EnableZipkinServer
+@EnableTurbineStream
+@EnableHystrixDashboard
 public class MonitorServerApplication {
 
 	public static void main(String[] args) {

@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
         //Assert.notNull(u, "can't find user");
 
-        return productRepository.findOne(id);
+        return productRepository.findById(id).get();
     }
 
     @Override

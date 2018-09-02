@@ -6,13 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor;
-import org.springframework.cloud.sleuth.Sampler;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,10 +20,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 @SpringBootApplication
-@RefreshScope
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableCircuitBreaker
 @EnableResourceServer
 @EnableOAuth2Client
 @Configuration
@@ -54,13 +48,6 @@ public class ProductServiceApplication extends ResourceServerConfigurerAdapter{
     public OAuth2RestTemplate clientCredentialsRestTemplate() {
         return new OAuth2RestTemplate(clientCredentialsResourceDetails());
     }
-
-    /**
-     * 注入该bean的含义为所有的交易都将传给zipkin服务器进行追踪
-     * @return
-     */
-    @Bean
-    public Sampler defaultSampler() { return new AlwaysSampler();}
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
