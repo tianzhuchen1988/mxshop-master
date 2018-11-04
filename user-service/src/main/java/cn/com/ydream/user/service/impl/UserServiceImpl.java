@@ -58,8 +58,7 @@ public class UserServiceImpl implements UserService{
         //randomlyRunLong();
 
         //u.setUserName(serviceConfig.getExampleProperty());
-        Optional<User> optional = userRepository.findById(id);
-        User u = optional.get();
+        User u = userRepository.findOne(id);
 
         log.info("进入查找用户..."+env.getProperty("envProperty"));
 

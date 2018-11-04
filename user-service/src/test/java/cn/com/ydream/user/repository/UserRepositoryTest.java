@@ -20,7 +20,7 @@ public class UserRepositoryTest {
 
     @Test
     public void findUserByIdTest(){
-        User user = userRepository.findById(1003).get();
+        User user = userRepository.findOne(1003);
         assertEquals(user.getUserName(), "chentz1");
     }
 

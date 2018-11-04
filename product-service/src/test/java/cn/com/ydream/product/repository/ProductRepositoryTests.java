@@ -18,7 +18,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void findProductByIdTest(){
-        Product product = productRepository.findById(1001).get();
+        Product product = productRepository.findOne(1001);
         log.info(product.getProductName());
     }
 }
